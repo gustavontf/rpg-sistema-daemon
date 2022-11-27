@@ -23,7 +23,7 @@ public class FichaController {
 
     @GetMapping
     public String index() {
-        return "Olá mundo!";
+        return "Olá mundo!!!";
     }
 
 }
