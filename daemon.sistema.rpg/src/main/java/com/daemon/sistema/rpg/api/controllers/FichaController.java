@@ -54,7 +54,7 @@ public class FichaController {
         return ResponseEntity.status(HttpStatus.OK).body(fichaModelOptional.get());
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> removerFicha(@PathVariable(value = "id") UUID id) {
         Optional<FichaModel> fichaModelOptional = fichaService.buscarPorId(id);
 

@@ -35,7 +35,8 @@ public class FichaService {
         return fichaRepository.findById(id);
     }
 
+    @Transactional
     public void remover(FichaModel fichaModel) {
-
+        fichaRepository.delete(fichaModel);
     }
 }
