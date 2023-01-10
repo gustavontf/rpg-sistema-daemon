@@ -66,4 +66,35 @@ public class FichaController {
         return ResponseEntity.status(HttpStatus.OK).body("Ficha removida com sucesso!");
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> atualizarFicha(@PathVariable(value = "id") UUID id, @RequestBody @Valid FichaDto fichaDto) {
+        Optional<FichaModel> fichaModelOptional = fichaService.buscarPorId(id);
+
+        if(!fichaModelOptional.isPresent()) {
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ficha não encontrada!");
+        }
+
+//        var fichaModel = fichaModelOptional.get();
+//
+//        fichaModel.setNome(fichaDto.getNome());
+//        fichaModel.setClasseSocialProfissao(fichaDto.getClasseSocialProfissao());
+//        fichaModel.setNivel(fichaDto.getNivel());
+//        fichaModel.setDataNascimento(fichaDto.getDataNascimento());
+//        fichaModel.setLocalNascimento(fichaDto.getLocalNascimento());
+//        fichaModel.setSexo(fichaDto.getSexo());
+//        fichaModel.setAltura(fichaDto.getAltura());
+//        fichaModel.setPeso(fichaDto.getPeso());
+//        fichaModel.setIdadeAparente(fichaDto.getIdadeAparente());
+//        fichaModel.setIdadeReal(fichaDto.getIdadeReal());
+//        fichaModel.setReligiao(fichaDto.getReligiao());
+
+        var fichaModel = new FichaModel();
+
+        BeanUtils.copyProperties(fichaDto, fichaModel);
+        fichaModel.setId(fichaModelOptional.get().getId());
+
+        return ResponseEntity.status(HttpStatus.OK).body(fichaService.salvar(fichaModel));
+    }
+
+
 }
