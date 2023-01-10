@@ -1,35 +1,27 @@
-package com.daemon.sistema.rpg.api.models;
+package com.daemon.sistema.rpg.api.dtos;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import java.util.UUID;
+public class FichaDto {
 
-@Entity
-@Table(name = "FICHA")
-public class FichaModel implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-
-    @Column(nullable = false, length = 200)
+    @NotBlank
+    @Size(max = 200)
     private String nome;
 
-    @Column(length = 50)
+    @Size(max = 50)
     private String classeSocialProfissao;
 
-    @Column(nullable = false)
+    @NotNull
     private Integer nivel;
 
     private String dataNascimento;
 
-    @Column(length = 100)
+    @Size(max = 100)
     private String localNascimento;
 
-    @Column(length = 50)
+    @Size(max = 50)
     private String sexo;
 
     private Float altura;
@@ -40,16 +32,8 @@ public class FichaModel implements Serializable {
 
     private Integer idadeReal;
 
-    @Column(length = 50)
+    @Size(max = 50)
     private String religiao;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -95,8 +79,8 @@ public class FichaModel implements Serializable {
         return sexo;
     }
 
-    public void setSexo(String orientacaoSexual) {
-        this.sexo = orientacaoSexual;
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     public Float getAltura() {
@@ -139,7 +123,3 @@ public class FichaModel implements Serializable {
         this.religiao = religiao;
     }
 }
-
-
-
-

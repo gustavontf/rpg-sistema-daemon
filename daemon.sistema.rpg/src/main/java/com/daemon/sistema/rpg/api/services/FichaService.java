@@ -5,6 +5,7 @@ import com.daemon.sistema.rpg.api.repositories.FichaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class FichaService {
@@ -20,4 +21,11 @@ public class FichaService {
         return fichaRepository.save(fichaModel);
     }
 
+    public boolean existePorNomeENivel(String nome, Integer nivel) {
+        return fichaRepository.existsByNomeAndNivel(nome, nivel);
+    }
+
+    public List<FichaModel> buscarTudo() {
+        return fichaRepository.findAll();
+    }
 }
