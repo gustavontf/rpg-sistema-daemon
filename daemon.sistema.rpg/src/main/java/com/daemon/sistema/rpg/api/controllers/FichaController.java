@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -39,6 +41,29 @@ public class FichaController {
     @GetMapping
     public ResponseEntity<List<FichaModel>> buscarTudasFichas() {
         return ResponseEntity.status(HttpStatus.OK).body(fichaService.buscarTudo());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> bucarFicha(@PathVariable(value = "id") UUID id) {
+        Optional<FichaModel> fichaModelOptional = fichaService.buscarPorId(id);
+
+        if(!fichaModelOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ficha não encontrada!");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(fichaModelOptional.get());
+    }
+
+    @DeleteMapping("/id")
+    public ResponseEntity<Object> removerFicha(@PathVariable(value = "id") UUID id) {
+        Optional<FichaModel> fichaModelOptional = fichaService.buscarPorId(id);
+
+        if(!fichaModelOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ficha não encontrada!");
+        }
+
+        fichaService.remover(fichaModelOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Ficha removida com sucesso!");
     }
 
 }

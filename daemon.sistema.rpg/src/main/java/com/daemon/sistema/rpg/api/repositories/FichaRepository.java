@@ -11,6 +11,4 @@ public interface FichaRepository extends JpaRepository<FichaModel, UUID> {
 
     boolean existsByNomeAndNivel(String nome, Integer nivel);
 
-
-
 }
